@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Congruencia Multiplicativa</title>
+    {% include 'links.html' %}
+  </head>
+
+  <body>
+    {% include 'header.html' %}
+    <div id="CLtables" class="container text-center mt-5 mx-auto">
+      <form method="POST" action="{{ url_for('multiplicative_congruence_calculate') }}">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputX0">X<sub>0</sub></label>
+              <input type="number" class="form-control" id="inputX0" name="inputX0" />
+            </div>
+            <div class="form-group">
+              <label for="inputk">t</label>
+              <input type="number" class="form-control" id="inputk" name="inputk" />
+            </div>
+            <div class="form-group">
+              <label for="inputm">g</label>
+              <input type="number" class="form-control" id="inputm" name="inputm" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="iteraciones">Iteraciones</label>
+              <input type="number" class="form-cont rol" id="iteraciones" name="iteraciones" />
+            </div>
+            <div class="form-group">
+              <label for="min-value">Valor Minimo</label>
+              <input type="number" class="form-control" id="min-value" name="min-value" />
+            </div>
+            <div class="form-group">
+              <label for="max-value">Valor Maximo</label>
+              <input type="number" class="form-control" id="max-value" name="max-value" />
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-block">
+                Calcular
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            onclick="copyValues()"
+          >
+            Copiar valores de Ni y Ri
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <form method="POST" action="{{ url_for('plot_multiplicative_congruence') }}">
+              <button type="submit" class="btn btn-primary btn-block">Graficar Ni</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-6 text-center border border-dark p-3">
+          <p>
+            <strong>X<sub>0</sub></strong
+            >: <span id="outputX0"></span>
+          </p>
+          <p><strong>a = 8t + 3</strong>: <span id="outputk"></span></p>
+          <p>
+            <strong>m = 2<sup>g</sup></strong
+            >: <span id="outputm"></span>
+          </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Resultados de congruencia multiplicativa</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>i</th>
+                    <th>Xi</th>
+                    <th>Ri</th>
+                    <th>Ni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("min-value").value =
+          "{{ request.form.get('min-value', '') }}";
+        document.getElementById("max-value").value =
+          "{{ request.form.get('max-value', '') }}";
+        document.getElementById("inputX0").value =
+          "{{ request.form.get('inputX0', '') }}";
+        document.getElementById("inputk").value =
+          "{{ request.form.get('inputk', '') }}";
+        document.getElementById("inputm").value =
+          "{{ request.form.get('inputm', '') }}";
+        document.getElementById("iteraciones").value =
+          "{{ request.form.get('iteraciones', '') }}";
+        document.getElementById("outputX0").innerHTML =
+          "{{ request.form.get('inputX0', '') }}";
+        document.getElementById("outputk").innerHTML =
+          1 + 2 * "{{ request.form.get('inputk', '') }}";
+        document.getElementById("outputm").innerHTML =
+          2 ** "{{ request.form.get('inputm', '') }}";
+      });
+
+      document
+        .getElementById("inputX0")
+        .addEventListener("change", function () {
+          document.getElementById("outputX0").innerHTML = this.value;
+        });
+
+      document.getElementById("inputk").addEventListener("change", function () {
+        document.getElementById("outputk").innerHTML = 8 * this.value + 3;
+      });
+
+      document.getElementById("inputm").addEventListener("change", function () {
+        document.getElementById("outputm").innerHTML = 2 ** this.value;
+      });
+    </script>
+
+    <script>
+      function copyValues() {
+        let table = document.querySelector("table");
+        let riValues = [];
+        let niValues = [];
+        for (let i = 1; i < table.rows.length; i++) {
+          let row = table.rows[i];
+          riValues.push(row.cells[2].innerText);
+          niValues.push(row.cells[3].innerText);
+        }
+        navigator.clipboard.writeText(
+          "Ri: " + riValues.join(", ") + "\nNi: " + niValues.join(", ")
+        );
+      }
+    </script>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        let x0 = document.getElementById("inputX0").value;
+        let k = document.getElementById("inputk").value;
+        let m = document.getElementById("inputm").value;
+        let iterations = document.getElementById("iteraciones").value;
+        let min = document.getElementById("min-value").value;
+        let max = document.getElementById("max-value").value;
+        if (x0 === "" || k === "" || m === "" || iterations === "" || min === "" || max === "") {
+          e.preventDefault();
+          alert("Todos los campos son obligatorios");
+        }
+      });
+    </script>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        let min = document.getElementById("min-value").value;
+        let max = document.getElementById("max-value").value;
+        if (min >= max) {
+          e.preventDefault();
+          alert("El valor mínimo debe ser menor que el valor máximo");
+        }
+      });
+    </script>
+
+  </body>
+</html>

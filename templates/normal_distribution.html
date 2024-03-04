@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distribución normal</title>
+    {% include 'links.html' %}
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <div id="CLtables" style="margin: 20px">
+      <form
+        method="POST"
+        action="{{ url_for('normal_distribution_calculate') }}"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="mean">Media:</label>
+                <input
+                  type="number"
+                  id="mean"
+                  name="mean"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="standard-deviation">Desviación estándar:</label>
+                <input
+                  type="number"
+                  id="standard-deviation"
+                  name="standard-deviation"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="iterations">Iteraciones:</label>
+                <input
+                  type="number"
+                  id="iterations"
+                  name="iterations"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary btn-block">
+                Calcular
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            onclick="copyValues()"
+          >
+            Copiar valores de Ni y Ri
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form
+            method="POST"
+            action="{{ url_for('plot_normal_distribution') }}"
+          >
+            <button type="submit" class="btn btn-primary btn-block">
+              Graficar Ni
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Resultados de Distribución Normal</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>i</th>
+            <th>Ri</th>
+            <th>Ni</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in i_values %}
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ ri_values[i-1] }}</td>
+            <td>{{ ni_values[i-1] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("mean").value =
+          "{{ request.form.get('mean', '') }}";
+        document.getElementById("standard-deviation").value =
+          "{{ request.form.get('standard-deviation', '') }}";
+        document.getElementById("iterations").value =
+          "{{ request.form.get('iterations', '') }}";
+      });
+    </script>
+
+    <script>
+      function copyValues() {
+        let table = document.querySelector("table");
+        let riValues = [];
+        let niValues = [];
+        for (let i = 1; i < table.rows.length; i++) {
+          let row = table.rows[i];
+          riValues.push(row.cells[1].innerText);
+          niValues.push(row.cells[2].innerText);
+        }
+        navigator.clipboard.writeText(
+          "Ri: " + riValues.join(", ") + "\nNi: " + niValues.join(", ")
+        );
+      }
+    </script>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        let mean = document.getElementById("mean").value;
+        let standardDeviation =
+          document.getElementById("standard-deviation").value;
+        let iterations = document.getElementById("iterations").value;
+        if (!mean || !standardDeviation || !iterations) {
+          e.preventDefault();
+          alert("Todos los campos son requeridos");
+        }
+      });
+    </script>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        let iterations = document.getElementById("iterations").value;
+        if (iterations <= 0) {
+          e.preventDefault();
+          alert("El número de iteraciones debe ser mayor que cero");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+body {
+  background-color: white; /* Fondo blanco */
+  color: black; /* Texto negro */
+  font-family: "Roboto", sans-serif; /* Fuente de Google Fonts */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Altura del 100% de la ventana */
+  margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+}
+
+.container {
+  margin-top: 20px;
+}
+
+h1 {
+  color: #6f42c1; /* Morado */
+  margin-bottom: 20px;
+}
+
+.btn-custom {
+  background-color: #6f42c1; /* Morado */
+  color: white; /* Texto blanco */
+  border: 1px solid #6f42c1; /* Borde morado */
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #5a3e99; /* Morado más oscuro al pasar el ratón */
+}
