@@ -190,9 +190,10 @@ def normal_distribution_calculate():
 def plot_mean_squares():
     global ni_values_ms
     global iterations_ms
-    intervals = dist.calculateInterval(iterations_ms, ni_values_ms)
-    freq = dist.calculaFreq(ni_values_ms, intervals)
-    html = dist.generatePlot(intervals, freq)
+    if len(ni_values_ms) == 0:
+        return "Vuelva a presionar el botón de calcular, por favor :)"
+    freq_table, freq = dist.calculate_interval(iterations_ms, ni_values_ms)
+    html = dist.generate_plot(freq_table, freq)
     return html
 
 
@@ -200,9 +201,10 @@ def plot_mean_squares():
 def plot_linear_congruence():
     global ni_values_lc
     global iterations_lc
-    intervals = dist.calculateInterval(iterations_lc, ni_values_lc)
-    freq = dist.calculaFreq(ni_values_lc, intervals)
-    html = dist.generatePlot(intervals, freq)
+    if len(ni_values_lc) == 0:
+        return "Vuelva a presionar el botón de calcular, por favor :)"
+    intervals, freq = dist.calculate_interval(iterations_lc, ni_values_lc)
+    html = dist.generate_plot(intervals, freq)
     return html
 
 
@@ -210,9 +212,10 @@ def plot_linear_congruence():
 def plot_multiplicative_congruence():
     global ni_values_mc
     global iterations_mc
-    intervals = dist.calculateInterval(iterations_mc, ni_values_mc)
-    freq = dist.calculaFreq(ni_values_mc, intervals)
-    html = dist.generatePlot(intervals, freq)
+    if len(ni_values_mc) == 0:
+        return "Vuelva a presionar el botón de calcular, por favor :)"
+    intervals, freq = dist.calculate_interval(iterations_mc, ni_values_mc)
+    html = dist.generate_plot(intervals, freq)
     return html
 
 
@@ -220,9 +223,10 @@ def plot_multiplicative_congruence():
 def plot_uniform_distribution():
     global ni_values_ud
     global iterations_ud
-    intervals = dist.calculateInterval(iterations_ud, ni_values_ud)
-    freq = dist.calculaFreq(ni_values_ud, intervals)
-    html = dist.generatePlot(intervals, freq)
+    if len(ni_values_ud) == 0:
+        return "Vuelva a presionar el botón de calcular, por favor :)"
+    intervals, freq = dist.calculate_interval(iterations_ud, ni_values_ud)
+    html = dist.generate_plot(intervals, freq)
     return html
 
 
@@ -230,9 +234,10 @@ def plot_uniform_distribution():
 def plot_normal_distribution():
     global ni_values_nd
     global iterations_nd
-    intervals = dist.calculateInterval(iterations_nd, ni_values_nd)
-    freq = dist.calculaFreq(ni_values_nd, intervals)
-    html = dist.generatePlot(intervals, freq)
+    if len(ni_values_nd) == 0:
+        return "Vuelva a presionar el botón de calcular, por favor :)"
+    intervals, freq = dist.calculate_interval(iterations_nd, ni_values_nd)
+    html = dist.generate_plot(intervals, freq)
     return html
 
 

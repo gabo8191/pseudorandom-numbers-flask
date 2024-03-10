@@ -157,7 +157,7 @@
     <script>
       document.querySelector("form").addEventListener("submit", function (e) {
         let iterations = document.getElementById("iterations").value;
-        if (iterations <= 0) {
+        if (int(iterations) <= 0) {
           e.preventDefault();
           alert("El número de iteraciones debe ser mayor que cero");
         }

@@ -157,11 +157,11 @@
         let minValue = document.getElementById("min-value").value;
         let maxValue = document.getElementById("max-value").value;
         let iterations = document.getElementById("iterations").value;
-        if (minValue >= maxValue) {
+        if (int(minValue) >= int(maxValue)) {
           e.preventDefault();
           alert("El valor mínimo debe ser menor que el valor máximo");
         }
-        if (iterations <= 0) {
+        if (int(iterations) <= 0) {
           e.preventDefault();
           alert("El número de iteraciones debe ser mayor que cero");
         }

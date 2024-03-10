@@ -187,9 +187,15 @@
       document.querySelector("form").addEventListener("submit", function (e) {
         let min = document.getElementById("min-value").value;
         let max = document.getElementById("max-value").value;
-        if (min >= max) {
+        let iteraciones = document.getElementById("iteraciones").value;
+        if (int(min) >= int(max)) {
           e.preventDefault();
           alert("El valor mínimo debe ser menor que el valor máximo");
+        }
+
+        if (int(iteraciones) <= 0) {
+          e.preventDefault();
+          alert("El número de iteraciones debe ser mayor que cero");
         }
       });
     </script>
