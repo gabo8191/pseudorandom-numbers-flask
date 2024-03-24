@@ -141,16 +141,15 @@
     </script>
 
     <script>
-      function validateForm() {
+        document.querySelector("form").addEventListener("submit", function (e) {
         let minValue = document.getElementById("min-value").value;
         let maxValue = document.getElementById("max-value").value;
         let iterations = document.getElementById("iterations").value;
         if (minValue === "" || maxValue === "" || iterations === "") {
+            e.preventDefault();
           alert("Todos los campos son requeridos");
-          return false;
         }
-        return true;
-      }
+        });
     </script>
     <script>
       document.querySelector("form").addEventListener("submit", function (e) {
