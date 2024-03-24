@@ -172,11 +172,11 @@
         let min = document.getElementById("min-value").value;
         let max = document.getElementById("max-value").value;
         let seed = document.getElementById("seed").value;
-        if (int(min) >= int(max)) {
+        if (parseInt(min) >= parseInt(max)) {
           e.preventDefault();
           alert("El valor mínimo debe ser menor que el valor máximo");
         }
-        if (int(seed) <= 0) {
+        if (parseInt(seed) <= 0) {
           e.preventDefault();
           alert("La semilla debe ser mayor que 0");
         }

@@ -27,7 +27,6 @@
               <div class="form-group">
                 <label for="standard-deviation">Desviación estándar:</label>
                 <input
-                  type="number"
                   id="standard-deviation"
                   name="standard-deviation"
                   class="form-control"
@@ -157,7 +156,7 @@
     <script>
       document.querySelector("form").addEventListener("submit", function (e) {
         let iterations = document.getElementById("iterations").value;
-        if (int(iterations) <= 0) {
+        if (parseInt(iterations) <= 0) {
           e.preventDefault();
           alert("El número de iteraciones debe ser mayor que cero");
         }

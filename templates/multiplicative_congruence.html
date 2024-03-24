@@ -38,10 +38,9 @@
               <label for="max-value">Valor Maximo</label>
               <input type="number" class="form-control" id="max-value" name="max-value" />
             </div>
-            <div class="form-group text-center">
+            </div class="form-group text-center">
               <button type="submit" class="btn btn-primary btn-block">
-                Calcular
-            </div>
+                  Calcular
           </div>
         </div>
       </form>
@@ -188,12 +187,12 @@
         let min = document.getElementById("min-value").value;
         let max = document.getElementById("max-value").value;
         let iteraciones = document.getElementById("iteraciones").value;
-        if (int(min) >= int(max)) {
+        if (parseInt(min) >= parseInt(max)) {
           e.preventDefault();
           alert("El valor mínimo debe ser menor que el valor máximo");
         }
 
-        if (int(iteraciones) <= 0) {
+        if (parseInt(iteraciones) <= 0) {
           e.preventDefault();
           alert("El número de iteraciones debe ser mayor que cero");
         }

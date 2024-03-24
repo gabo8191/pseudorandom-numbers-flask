@@ -206,12 +206,12 @@
         let min = document.getElementById("min-value").value;
         let max = document.getElementById("max-value").value;
         let iterations = document.getElementById("iteraciones").value;
-        if (int(min) >= int(max)) {
+        if (parseInt(min) >= parseInt(max)) {
           e.preventDefault();
           alert("El valor mínimo debe ser menor que el valor máximo");
         }
 
-        if (int(iterations) <= 0) {
+        if (parseInt(iterations) <= 0) {
           e.preventDefault();
           alert("El número de iteraciones debe ser mayor que cero");
         }
